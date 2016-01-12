@@ -1,19 +1,12 @@
 # -*- coding: utf-8 -*-
 
-#########################################################################
-## This scaffolding model makes your app work on Google App Engine too
-## File is released under public domain and you can use without limitations
-#########################################################################
-
-## if SSL/HTTPS is properly configured and you want all HTTP requests to
-## be redirected to HTTPS, uncomment the line below:
-# request.requires_https()
+def p(txt):
+    return txt  # dummy messages translation
 
 ## app configuration made easy. Look inside private/appconfig.ini
 from gluon.contrib.appconfig import AppConfig
 ## once in production, remove reload=True to gain full speed
 myconf = AppConfig(reload=True)
-
 
 if not request.env.web2py_runtime_gae:
     ## if NOT running on Google App Engine use SQLite or other DB
@@ -56,6 +49,28 @@ from gluon.tools import Auth, Service, PluginManager
 auth = Auth(db)
 service = Service()
 plugins = PluginManager()
+
+auth.settings.create_user_groups = None
+auth.settings.extra_fields['auth_user'] = [
+    Field('email_ver', 'boolean', default=True, label=p("Mail není tajný"),
+          comment=p('zaškrtni, pokud chceš dovolit zobrazování Tvé e-mailové adresy na stránkách')),
+    Field('telefon', length=50, default='', label=p("Telefon"),
+          comment=p('pro organizátora vždy doporučujeme vyplnit (i když nemusí být zveřejněn)')),
+    Field('tel_ver', 'boolean', default=True, label=p("Tel. není tajný"),
+          comment=p('zaškrtni, pokud chceš dovolit zobrazování Tvého telefonního čísla na stránkách')),
+    Field('nick', length=100, default='',
+          comment=p('přezdívka, pod kterou chceš být uváděn')),
+    Field('organizator', 'boolean', default=False,
+          label=p('Organizátor akcí'),
+          comment=p('chci mít k dispozici více voleb pro organizování akcí')),
+    Field('ode_dne', 'date', readable=False, writable=False,
+        default=datetime.date.today(), label=p('Ode dne'),
+        comment=p('registrován od...')),
+    Field('prihlasen', 'date', label=p('Přihlášen'), readable=False, writable=False
+        comment=p('naposledy přihlášen dne')),
+    Field('neposilat', 'boolean', default=False, label=p('Neposílat pozvánky'),
+        comment=p('neposílat pozvánky od kteréhokoli organizátora (chci je sledovat na webu')),
+    ]
 
 ## create all tables needed by auth if not custom tables
 auth.define_tables(username=False, signature=False)
