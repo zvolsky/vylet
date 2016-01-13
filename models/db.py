@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+
 def p(txt):
     return txt  # dummy messages translation
 
@@ -66,7 +68,7 @@ auth.settings.extra_fields['auth_user'] = [
     Field('ode_dne', 'date', readable=False, writable=False,
         default=datetime.date.today(), label=p('Ode dne'),
         comment=p('registrován od...')),
-    Field('prihlasen', 'date', label=p('Přihlášen'), readable=False, writable=False
+    Field('prihlasen', 'date', label=p('Přihlášen'), readable=False, writable=False,
         comment=p('naposledy přihlášen dne')),
     Field('neposilat', 'boolean', default=False, label=p('Neposílat pozvánky'),
         comment=p('neposílat pozvánky od kteréhokoli organizátora (chci je sledovat na webu')),
