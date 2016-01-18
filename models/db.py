@@ -2,7 +2,7 @@
 
 import datetime
 
-def p(txt):
+def P(txt):
     return txt  # dummy messages translation
 
 ## app configuration made easy. Look inside private/appconfig.ini
@@ -54,28 +54,27 @@ plugins = PluginManager()
 
 auth.settings.create_user_groups = None
 auth.settings.extra_fields['auth_user'] = [
-    Field('email_ver', 'boolean', default=True, label=p("Mail není tajný"),
-          comment=p('zaškrtni, pokud chceš dovolit zobrazování Tvé e-mailové adresy na stránkách')),
-    Field('telefon', length=50, default='', label=p("Telefon"),
-          comment=p('pro organizátora vždy doporučujeme vyplnit (i když nemusí být zveřejněn)')),
-    Field('tel_ver', 'boolean', default=True, label=p("Tel. není tajný"),
-          comment=p('zaškrtni, pokud chceš dovolit zobrazování Tvého telefonního čísla na stránkách')),
-    Field('nick', length=100, default='',
-          comment=p('přezdívka, pod kterou chceš být uváděn')),
+    Field('email_ver', 'boolean', default=True, label=P("Mail není tajný"),
+          comment=P('zaškrtni, pokud chceš dovolit zobrazování Tvé e-mailové adresy na stránkách')),
+    Field('telefon', length=50, default='', label=P("Telefon"),
+          comment=P('pro organizátora vždy doporučujeme vyplnit (i když nemusí být zveřejněn)')),
+    Field('tel_ver', 'boolean', default=True, label=P("Tel. není tajný"),
+          comment=P('zaškrtni, pokud chceš dovolit zobrazování Tvého telefonního čísla na stránkách')),
     Field('organizator', 'boolean', default=False,
-          label=p('Organizátor akcí'),
-          comment=p('chci mít k dispozici více voleb pro organizování akcí')),
+          label=P('Organizátor akcí'),
+          comment=P('chci mít k dispozici více voleb pro organizování akcí')),
     Field('ode_dne', 'date', readable=False, writable=False,
-        default=datetime.date.today(), label=p('Ode dne'),
-        comment=p('registrován od...')),
-    Field('prihlasen', 'date', label=p('Přihlášen'), readable=False, writable=False,
-        comment=p('naposledy přihlášen dne')),
-    Field('neposilat', 'boolean', default=False, label=p('Neposílat pozvánky'),
-        comment=p('neposílat pozvánky od kteréhokoli organizátora (chci je sledovat na webu')),
+        default=datetime.date.today(), label=P('Ode dne'),
+        comment=P('registrován od...')),
+    Field('prihlasen', 'date', label=P('Přihlášen'), readable=False, writable=False,
+        comment=P('naposledy přihlášen dne')),
+    Field('neposilat', 'boolean', default=False, label=P('Neposílat pozvánky'),
+        comment=P('neposílat pozvánky od kteréhokoli organizátora (chci je sledovat jen na webu')),
     ]
 
 ## create all tables needed by auth if not custom tables
-auth.define_tables(username=False, signature=False)
+auth.define_tables(username=True, signature=False)
+db.auth_user.username.comment = P('přihlašovací jméno a zároveň přezdívka, zobrazovaná ostatním')
 
 ## configure email
 mail = auth.settings.mailer
