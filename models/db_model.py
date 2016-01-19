@@ -17,3 +17,24 @@ db.define_table('akce',
           comment=P('podrobnosti akce / pozvánky')),
     format='%(nazev)s'
     )
+
+db.define_table('ucastnik',
+    Field('nick', length=32, label=P("Přezdívka"),
+          comment=P('přezdívka účastníka')),
+    format='%(nick)s'
+    )
+
+db.define_table('typ_galerie',
+    Field('typ', length=32, label=P("Typ galerie")),
+    format='%(typ)s'
+    )
+
+db.define_table('galerie',
+    Field('akce_id', db.akce, label=P("Akce"),
+          comment=P('Akce, k níž se vztahuje tato galerie')),
+    Field('typ_galerie_id', db.typ_galerie, label=P("Typ galerie")),
+    Field('ucastnik_id', db.ucastnik, label=P("Autor galerie")),
+    Field('odkaz', length=192, label=P("Adresa galerie"),
+          comment=P('odkaz, URL galerie')),
+    format='%(odkaz)s'
+    )
