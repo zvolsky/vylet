@@ -1,0 +1,36 @@
+{{extend 'layout.html'}}
+
+{{if user_settings:}}
+    <h3>{{=T("Available user settings")}}</h3>
+    {{for setting in user_settings:}}
+        <p>xxx</p>
+    {{pass}}
+{{else:}}
+    <p>{{=T("There are no user settings available for this application.")}}</p>
+{{pass}}
+
+{{if allowed_global:}}
+    {{global_explain = '<p><i>%s</i></p>' % T("Global settings are common for all users or they serve as default if user changes are allowed.")}}
+    {{if global_settings:}}
+        <h3>{{=T("Available global settings")}}</h3>
+        {{global_explain}}
+        {{for setting in global_settings:}}
+            <p>xxx</p>
+        {{pass}}
+    {{else:}}
+        <p>{{=T("There are no global settings available for this application.")}}</p>
+        {{global_explain}}
+    {{pass}}
+{{pass}}
+
+{{if allowed_structure:}}
+    <h3>{{=T("Define available configurations for this application")}}</h3>
+    <p>{{=T("You have rights to define available settings.")}}</p>
+    <p>{{if plugins.manage_groups:}}
+        {{=XML(T("Set group members of groups %s (can define settings structure) and %s (set default settings).") %
+        (A('plugin_config_structure', _href="%s" % URL('plugin_manage_groups', 'group', args='plugin_config_structure')),
+        A('plugin_config_global', _href="%s" % URL('plugin_manage_groups', 'group', args='plugin_config_global'))))}}
+    {{else:}}
+        {{=T("Admin can set group members of groups plugin_config_structure (can define settings structure) and plugin_config_global (set default settings). To do that you can install plugin_manage_groups.")}}
+    {{pass}}</p>
+{{pass}}
