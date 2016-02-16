@@ -14,7 +14,22 @@ db.define_table('akce',
     Field('ukonceni', 'datetime', label=P("Předpokládané ukončení"),
           comment=P('předpokládané ukončení nebo návrat')),
     Field('popis', 'text', label=P("Popis"),
-          comment=P('podrobnosti akce / pozvánky')),
+          comment=P('podrobnosti akce nebo pozvánky')),
+    format='%(nazev)s'
+    )
+
+db.define_table('trasa',
+    Field('akce_id', db.akce, label=P("Akce"),
+          comment=P('akce, k níž se vztahuje tato trasa')),
+    Field('auth_user_id', db.auth_user, default=auth.user_id, label=P("Uživatel"),
+          comment=P('kdo nahrál tuto trasu')),
+    Field('typ', 'integer', requires=IS_IN_SET([('N', P('návrh')), ('G', P('stopa GPS')), ('P', P('přibližný zpětný zákres'))],
+                                                zero='', error_message=P('zvol jednu z možností')),
+          label=P("Typ záznamu trasy"), comment=P('N návrh, G GPS stopa, P přibližný zpětný zákres')),
+    Field('trasa', 'upload', label=P("Gpx soubor"),
+          comment=P('trasa výletu nebo cesty ve formátu gpx (záznam GPS, mapy.cz-Měření/Plánování-Exportovat, ..')),
+    Field('poznamka', 'text', label=P("Poznámka"),
+          comment=P('část cesty nebo varianta, možná porucha GPS záznamu, apod.')),
     format='%(nazev)s'
     )
 

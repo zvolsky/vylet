@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import datetime
-
-def P(txt):
-    return txt  # dummy messages translation
-
 ## app configuration made easy. Look inside private/appconfig.ini
 from gluon.contrib.appconfig import AppConfig
 ## once in production, remove reload=True to gain full speed
