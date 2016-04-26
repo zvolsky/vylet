@@ -3,7 +3,7 @@
 @auth.requires_login()
 def index():
     response.view = 'global_/grid.html'
-    return dict(hdr=P("Zadejte známé, které např. chcete zvát na akce nebo z jejichž mailů si chcete evidovat akce a galerie k akcím."),
+    return dict(hdr=PP("Zadejte známé, které např. chcete zvát na akce nebo z jejichž mailů si chcete evidovat akce a galerie k akcím."),
                 grid=_grid(db.znamy, db.znamy.nick))
 
 def _grid(query, orderby):

@@ -1,5 +1,4 @@
 {{extend 'layout.html'}}
 
-{{=akce}}
-
-{{=trasa}}
+{{=A(PP("Akce není v nabídce - zadat jinou/novou akci"), _href=URL('akce', vars={'referrer': 'upload_gpx'}), _class="btn btn-info")}}
+{{=form}}

@@ -2,7 +2,7 @@
 
 import datetime
 
-from mzm import P, accept, link
+from mzm import PP, accept, link
 link('js/mz/mzj', 'css/mz/mzc')
 
 ## if SSL/HTTPS is properly configured and you want all HTTP requests to
